@@ -1,0 +1,9 @@
+canastaAppName: canasta
+replicaCount: 1
+image:
+  repository: ghcr.io/canastawiki/canasta
+  tag: latest
+  pullPolicy: IfNotPresent
+resources: {}
+sitemapDataClaimName: sitemap-data
+elasticsearchDataClaimName: elasticsearch-data
