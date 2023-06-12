@@ -5,5 +5,9 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 resources: {}
+
+settingsFolder: settings/
+configFolder: config/
+
 sitemapDataClaimName: sitemap-data
 elasticsearchDataClaimName: elasticsearch-data
