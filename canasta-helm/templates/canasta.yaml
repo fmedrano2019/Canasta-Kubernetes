@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: canasta-settings
 data:
-  {{ (.Files.Glob .Values.settingsFolder).AsConfig | indent 2 }}
+{{ (.Files.Glob .Values.settingsFolder).AsConfig | indent 2 }}
 
 ---
 
@@ -12,7 +12,7 @@ kind: ConfigMap
 metadata:
   name: canasta-config
 data:
-  {{ (.Files.Glob .Values.configFolder).AsConfig | indent 2 }}
+{{ (.Files.Glob .Values.configFolder).AsConfig | indent 2 }}
 
 ---
 
@@ -21,7 +21,7 @@ kind: ConfigMap
 metadata:
   name: canasta-env
 data:
-  {{ (.Files.Glob ".env").AsConfig | indent 2 }}
+{{ (.Files.Glob ".env").AsConfig | indent 2 }}
 
 ---
 
