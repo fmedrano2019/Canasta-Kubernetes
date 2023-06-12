@@ -7,13 +7,21 @@ data:
 
 ---
 
-
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: canasta-config
 data:
   {{ (.Files.Glob .Values.configFolder).AsConfig | indent 2 }}
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: canasta-env
+data:
+  {{ (.Files.Glob ".env").AsConfig | indent 2 }}
 
 ---
 
