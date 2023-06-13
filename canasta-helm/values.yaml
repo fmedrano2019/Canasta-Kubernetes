@@ -3,11 +3,22 @@ replicaCount: 1
 image:
   repository: ghcr.io/canastawiki/canasta
   tag: latest
-  pullPolicy: IfNotPresent
-resources: {}
 
+canastaSettingsVolumeName: canasta-settings
+canastaSettingsConfigName: canasta-settings
 settingsFolder: settings/*
+
+canastaConfigVolumeName: canasta-config
+canastaConfigConfigName: canasta-config
 configFolder: config/*
 
+canastaEnvConfigName: canasta-env
+
+configVolumeName: config-volume
+configVolumePath: /canasta/config-data
+
+sitemapDataVolumeName: sitemap-data
 sitemapDataClaimName: sitemap-data
+
+elasticsearchDataVolumeName: elasticsearch
 elasticsearchDataClaimName: elasticsearch-data
