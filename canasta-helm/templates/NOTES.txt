@@ -1,0 +1,2 @@
+To port forward the Canasta service to port 80 on host run
+    kubectl port-forward service/canasta 80:80
