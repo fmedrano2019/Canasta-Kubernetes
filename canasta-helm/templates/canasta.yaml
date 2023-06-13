@@ -1,25 +1,25 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.canastaSettingsConfigName }}
+  name: {{ .Values.canastaSettings.configName }}
 data:
-{{ (.Files.Glob .Values.settingsFolder).AsConfig | indent 2 }}
+{{ (.Files.Glob .Values.canastaSettings.settingsFolder).AsConfig | indent 2 }}
 
 ---
 
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.canastaConfigConfigName }}
+  name: {{ .Values.canastaConfig.configName }}
 data:
-{{ (.Files.Glob .Values.configFolder).AsConfig | indent 2 }}
+{{ (.Files.Glob .Values.canastaConfig.configFolder).AsConfig | indent 2 }}
 
 ---
 
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.canastaEnvConfigName }}
+  name: {{ .Values.canastaEnv.configName }}
 data:
 {{ (.Files.Glob ".env").AsConfig | indent 2 }}
 
@@ -41,7 +41,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.sitemapDataClaimName }}
+  name: {{ .Values.sitemapData.claimName }}
 spec:
   accessModes:
     - ReadWriteOnce
@@ -55,7 +55,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.elasticsearchDataClaimName }}
+  name: {{ .Values.elasticsearchData.claimName }}
 spec:
   accessModes:
     - ReadWriteOnce
@@ -87,22 +87,22 @@ spec:
         - containerPort: 80
         envFrom:
         - configMapRef:
-            name: {{ .Values.canastaEnvConfigName }}
+            name: {{ .Values.canastaEnv.configName }}
         volumeMounts:
         - mountPath: /var/www/mediawiki/w/user-extensions
-          name: {{ .Values.configVolumeName }}
+          name: {{ .Values.configVolume.volumeName }}
           subPath: ./extensions
         - mountPath: /var/www/mediawiki/w/user-skins
-          name: {{ .Values.configVolumeName }}
+          name: {{ .Values.configVolume.volumeName }}
           subPath: ./skins
         - mountPath: /mediawiki/config
-          name: {{ .Values.canastaConfigConfigName }}
+          name: {{ .Values.canastaConfig.volumeName }}
         - mountPath: /mediawiki/config/settings
-          name: {{ .Values.canastaSettingsVolumeName }}
+          name: {{ .Values.canastaSettings.volumeName }}
         - mountPath: /mediawiki/images
-          name: {{ .Values.configVolumeName }}
+          name: {{ .Values.configVolume.volumeName }}
           subPath: ./images
-        - name: {{ .Values.sitemapDataVolumeName }}
+        - name: {{ .Values.sitemapData.volumeName }}
           mountPath: /mediawiki/sitemap
       - name: elasticsearch
         image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
@@ -119,26 +119,26 @@ spec:
           requests:
             memory: "2Gi"
         volumeMounts:
-        - name: {{ .Values.elasticsearchDataVolumeName }}
+        - name: {{ .Values.elasticsearchData.volumeName }}
           mountPath: /usr/share/elasticsearch/data
         securityContext:
           capabilities:
             add:
               - IPC_LOCK
       volumes:
-      - name: {{ .Values.canastaConfigVolumeName }}
+      - name: {{ .Values.canastaConfig.volumeName }}
         configMap:
-          name: {{ .Values.canastaConfigConfigName }}
-      - name: {{ .Values.canastaSettingsVolumeName }}
+          name: {{ .Values.canastaConfig.configName }}
+      - name: {{ .Values.canastaSettings.volumeName }}
         configMap:
-          name: {{ .Values.canastaSettingsConfigName }}
-      - name: {{ .Values.configVolumeName }}
+          name: {{ .Values.canastaSettings.configName }}
+      - name: {{ .Values.configVolume.volumeName }}
         hostPath:
-          path: {{ .Values.configVolumePath }}
+          path: {{ .Values.configVolume.hostPath }}
           type: DirectoryOrCreate
-      - name: {{ .Values.sitemapDataVolumeName }}
+      - name: {{ .Values.sitemapData.volumeName }}
         persistentVolumeClaim:
-          claimName: {{ .Values.sitemapDataClaimName }}
-      - name: {{ .Values.elasticsearchDataVolumeName }}
+          claimName: {{ .Values.sitemapData.claimName }}
+      - name: {{ .Values.elasticsearchData.volumeName }}
         persistentVolumeClaim:
-          claimName: {{ .Values.elasticsearchDataClaimName }}
+          claimName: {{ .Values.elasticsearchData.claimName }}

@@ -4,21 +4,28 @@ image:
   repository: ghcr.io/canastawiki/canasta
   tag: latest
 
-canastaSettingsVolumeName: canasta-settings
-canastaSettingsConfigName: canasta-settings
-settingsFolder: settings/*
+canastaSettings:
+  volumeName: canasta-settings
+  configName: canasta-settings
+  settingsFolder: settings/*
 
-canastaConfigVolumeName: canasta-config
-canastaConfigConfigName: canasta-config
-configFolder: config/*
+canastaConfig:
+  volumeName: canasta-config
+  configName: canasta-config
+  configFolder: config/*
 
-canastaEnvConfigName: canasta-env
+canastaEnv:
+  configName: canasta-env
 
-configVolumeName: config-volume
-configVolumePath: /canasta/config-data
+configVolume:
+  volumeName: config-volume
+  hostPath: /canasta/config-data
 
-sitemapDataVolumeName: sitemap-data
-sitemapDataClaimName: sitemap-data
+sitemapData:
+  volumeName: sitemap-data
+  claimName: sitemap-data
 
-elasticsearchDataVolumeName: elasticsearch
-elasticsearchDataClaimName: elasticsearch-data
+elasticsearchData:
+  volumeName: elasticsearch
+  claimName: elasticsearch-data
+  
