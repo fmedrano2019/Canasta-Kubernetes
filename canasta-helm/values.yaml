@@ -29,3 +29,10 @@ elasticsearchData:
   volumeName: elasticsearch
   claimName: elasticsearch-data
   
+
+database:
+  type: mysql
+  server: 50.231.135.51
+  name: basketcase
+  user: wikiworks
+  password: IAmTheDictatorRemotely

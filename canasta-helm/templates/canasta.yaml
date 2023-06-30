@@ -12,7 +12,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.canastaConfig.configName }}
 data:
-{{ (.Files.Glob .Values.canastaConfig.configFolder).AsConfig | indent 2 }}
+{{ ( tpl (.Files.Glob .Values.canastaConfig.configFolder).AsConfig .) | indent 2 }}
 
 ---
 
